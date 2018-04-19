@@ -42,7 +42,6 @@ curl_download_Url<-function(url,...) {
   return(out)
 }
 
-
 ###################
 #  FGO Card Info  #
 ###################
@@ -73,19 +72,20 @@ for(i in 1:N_Card){
   
   #保存图片
   if(T){
-  ii<-ifelse(i<10, paste("00",i,sep=""), ifelse(i<100,  paste("0",i,sep=""), trimws(as.character(i)))) #补全三位数
-  fgowiki_img0<-paste(fgowiki_img_URL0,ii,LETTERS[1:5],".png",sep="")
-  picName<-paste(ii,LETTERS[1:5],".png",sep="") #图片的命名，A~D分别为初始~满破，E为愚人节
-  for(j in 1:5){curl_download_Url(fgowiki_img0[j],destfile = picName[j])}#下载英灵的5张图
+    ii<-ifelse(i<10, paste("00",i,sep=""), ifelse(i<100,  paste("0",i,sep=""), trimws(as.character(i)))) #补全三位数
+    fgowiki_img0<-paste(fgowiki_img_URL0,ii,LETTERS[1:5],".png",sep="")
+    picName<-paste(ii,LETTERS[1:5],".png",sep="") #图片的命名，A~D分别为初始~满破，E为愚人节
+    for(j in 1:5){curl_download_Url(fgowiki_img0[j],destfile = picName[j])} #下载英灵的5张图
+  }
    
   #进度条
   now.Time<-Sys.time()
   duration0 <- difftime(now.Time,start.Time,units="sec") %>% as.numeric() #已经花了多少时间
-  ato.time<-(N_Card-i)/i*duration0 #还剩多少时间
-  stop.Time<-now.Time+ato.time #预计到什么时候结束
+  ato.time0<-(N_Card-i)/i*duration0 #还剩多少时间
+  stop.Time<-now.Time+ato.time0 #预计到什么时候结束
   progress0<- floor(i/N_Card*10000)/100   #已完成的百分比
   progress<-paste(">>>> 已完成",progress0,"%,花费",floor(duration0*100)/100,
-                  "sec,还剩",floor(ato.time*100)/100,"sec,预计到",stop.Time,"完成 >>>>",sep="")
+                  "sec,还剩",floor(ato.time0*100)/100,"sec,预计到",stop.Time,"完成 >>>>",sep="")
   print(progress)
 }
   
